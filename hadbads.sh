@@ -23,8 +23,12 @@ done
 printf '\033c'
 
 
+echo "Please Partition a drive to : "
+read drive
 reflector --latest 20 --sort rate --save /etc/pacman.d/mirrorlist --protocol https --download-timeout 5
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 5/" /etc/pacman.conf
 loadkeys us
 timedatectl set-ntp true
 lsblk
+swap=$(expr $(cat /proc/meminfo | head -n1 | awk '{print $2}') \* 150 / 100)
+
