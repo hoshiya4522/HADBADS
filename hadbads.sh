@@ -21,3 +21,10 @@ while ! [[ $choice == "" || $choice == "y" || $choice == "n" || $choice == "Y" |
 done
 [[ $choice == "n" ]] && echo "Exiting..." && exit
 printf '\033c'
+
+
+reflector --latest 20 --sort rate --save /etc/pacman.d/mirrorlist --protocol https --download-timeout 5
+sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 5/" /etc/pacman.conf
+loadkeys us
+timedatectl set-ntp true
+lsblk
