@@ -139,5 +139,12 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.config/plugins/zsh
 git clone https://github.com/joshskidmore/zsh-fzf-history-search ~/.config/plugins/zsh/zsh-fzf-history-search
 git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.config/plugins/zsh/zsh-syntax-highlighting
 
+mkdir ~/tmp
+cd tmp
+git clone https://aur.archlinux.org/paru-bin.git 
+cd paru-bin
+makepkg -si
+
+paru -S picom-jonaburg-git
 
 exit
