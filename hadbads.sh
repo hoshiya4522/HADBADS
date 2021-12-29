@@ -79,6 +79,8 @@ pacman -S --needed --noconfirm xorg-server xorg-xinit xorg-xkill xorg-xsetroot x
      xcompmgr libnotify dunst jq xdg-user-dirs \
 	 dhcpcd networkmanager pamixer alacritty python wget ranger thunar 
 
+pacman -S $(pacman -Ssq noto-fonts-)
+
 systemctl enable NetworkManager.service 
 systemctl enable dhcpcd.service
 
