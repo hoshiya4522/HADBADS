@@ -76,7 +76,7 @@ pacman -S --needed --noconfirm xorg-server xorg-xinit xorg-xkill xorg-xsetroot x
      zip unzip unrar xdotool papirus-icon-theme brightnessctl  \
      dosfstools git sxhkd zsh pulseaudio \
      vim neovim arc-gtk-theme firefox dash \
-     xcompmgr libnotify dunst jq xdg-user-dirs \
+     xcompmgr libnotify dunst jq zoxide xdg-user-dirs \
 	 dhcpcd networkmanager pamixer alacritty python wget ranger thunar 
 
 pacman -S $(pacman -Ssq noto-fonts-)
