@@ -1,0 +1,14 @@
+# pacman -Qqme > aur_packages.txt
+arduino-ide-bin
+epson-inkjet-printer-201401w
+hexecute
+java-debug
+k2pdfopt
+piper-tts-bin
+python-edge-tts
+python-pywal16
+snappy-switcher
+ttf-hind-siliguri
+waycorner
+wleave
+zsh-antidote
