@@ -184,13 +184,19 @@ EOF
 
 hadbads_packages_install() {
 	pacman -Syu --noconfirm --needed $(awk -F'#' '{print $1}' pkglists/pacman_packages.txt) 
+
 	sudo -u "$username" yay -Syu --noconfirm --needed $(awk -F'#' '{print $1}' /root/pkglists/aur_packages.txt)
+
+	usermod -aG libvirt "$username"
 }
 
 hadbads_configure_user() {
 	echo "root:${password}" | chpasswd
-	useradd -mG wheel,libvirt -s /bin/bash "$username"
+
+	useradd -mG wheel -s /bin/bash "$username"
+
 	echo "${username}:${password}" | chpasswd
+
 	sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 }
 
