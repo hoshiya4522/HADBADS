@@ -183,7 +183,7 @@ EOF
 }
 
 hadbads_packages_install() {
-	pacman -Syu --noconfirm --needed $(awk -F'#' '{print $1}' pkglists/pacman_packages.txt) 
+	pacman -Syu --noconfirm --needed $(awk -F'#' '{print $1}' /root/pkglists/pacman_packages.txt) yay
 
 	sudo -u "$username" yay -Syu --noconfirm --needed $(awk -F'#' '{print $1}' /root/pkglists/aur_packages.txt)
 
