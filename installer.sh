@@ -202,7 +202,7 @@ hadbads_configure_user() {
 
 hadbads_apply_dotfiles() {
 	pacman -S --noconfirm --needed git chezmoi # confirming one more time
-	su - "$username" -c "chezmoi init --apply https://github.com/hoshiya4522/dotfiles.git"
+	sudo -u "$username" chezmoi init --apply https://github.com/hoshiya4522/dotfiles.git
 }
 
 hadbads_enable_services() {
