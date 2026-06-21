@@ -243,6 +243,7 @@ else
 	hadbads_initramfs
 	hadbads_configure_pacman
 	hadbads_configure_bootloader
+	hadbads_setup_xlibre_repo
 	hadbads_setup_chaotic_aur
 	hadbads_configure_user
 	hadbads_packages_install
