@@ -3,7 +3,7 @@ Hoshiya's Awful Dotfiles Bootstrap And Deployment Script
 
 > [!WARNING]
 > I made this script for myself. This may or may not work for you.
-> Also, I haven't tested this yet.
+> Works on my VM™.
 
 **Note:**
 - hostname is "Pluto" (I like intersteller names)
@@ -16,15 +16,20 @@ Hoshiya's Awful Dotfiles Bootstrap And Deployment Script
 
 1. Boot into the Arch Linux Live USB.
 2. Connect to the internet. [Guide](https://wiki.archlinux.org/title/Installation_guide#Connect_to_the_internet), [Using iwctl](https://wiki.archlinux.org/title/Iwd)
-3. Download or clone this repository:
+3. Install git:
+```bash
+pacman -Sy git
+```
+
+4. Download or clone this repository:
 ```bash
 git clone https://github.com/hoshiya4522/hadbads.git
 cd hadbads
 ```
 
-4. Run the script as root:
+5. Run the script as root:
 ```bash
-./installer.sh
+chmod +x installer.sh && ./installer.sh
 ```
 
 5. Wait for the installation to finish and reboot your computer.
