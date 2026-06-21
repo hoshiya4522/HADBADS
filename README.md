@@ -1,4 +1,5 @@
 # HADBADS
+
 Hoshiya's Awful Dotfiles Bootstrap And Deployment Script
 
 > [!WARNING]
@@ -37,6 +38,7 @@ chmod +x installer.sh && ./installer.sh
 
 
 ## References (Codes ive stolen from)
+
 - [Archer - Archlinux install script by mietinen](https://github.com/mietinen/archer) - Heavily "inspired" from
 - [Modern Arch linux installation guide by mjkstra](https://gist.github.com/mjkstra/96ce7a5689d753e7a6bdd92cdc169bae)
 - [Official Arch Linux Installation guide](https://wiki.archlinux.org/title/Installation_guide)

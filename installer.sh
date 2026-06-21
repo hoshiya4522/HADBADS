@@ -182,6 +182,18 @@ EOF
 	pacman -Syu --noconfirm
 }
 
+hadbads_setup_xlibre_repo() {
+	pacman-key --recv-keys 73580DE2EDDFA6D6
+	pacman-key --finger 73580DE2EDDFA6D6
+	pacman-key --lsign-key 73580DE2EDDFA6D6
+
+	cat >> /etc/pacman.conf <<EOF
+[xlibre]
+Server = https://x11libre.net/repo/arch_based/x86_64
+EOF
+	pacman -Syu --noconfirm
+}
+
 hadbads_packages_install() {
 	pacman -Syu --noconfirm --needed $(awk -F'#' '{print $1}' /root/pkglists/pacman_packages.txt) yay
 
