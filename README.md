@@ -10,6 +10,7 @@ Hoshiya's Awful Dotfiles Bootstrap And Deployment Script
 - username "hoshiya4522"  (me :D)
 - device is `/dev/vda` - **Make sure to change this to your actual drive.**
 - and the password is `123` (Most secure password in the world)
+- (Also this only works for UEFI systems, for now)
 
 ## How to Install
 
@@ -28,3 +29,9 @@ cd hadbads
 
 5. Wait for the installation to finish and reboot your computer.
 
+
+
+## References (Codes ive stolen from)
+- [Archer - Archlinux install script by mietinen](https://github.com/mietinen/archer) - Heavily "inspired" from
+- [Modern Arch linux installation guide by mjkstra](https://gist.github.com/mjkstra/96ce7a5689d753e7a6bdd92cdc169bae)
+- [Official Arch Linux Installation guide](https://wiki.archlinux.org/title/Installation_guide)

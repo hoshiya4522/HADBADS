@@ -30,6 +30,10 @@ fi
 
 
 hadbads_check_liveiso() {
+	if [ ! -d "/sys/firmware/efi" ]; then
+		echo "This system is ment to be run on UEFI systems."
+		exit 1
+	fi
 	if [ ! "$(uname -n)" = "archiso" ]; then
 		echo "This script is ment to be run from the Archlinux live medium."
 		exit
@@ -58,7 +62,7 @@ hadbads_disk_partition() {
 
 	# specify device type
 	mkfs.fat -F 32 "${efidev}"
-	mkfs.btrfs "${rootdev}"
+	mkfs.btrfs -f "${rootdev}"
 
 	mount "${rootdev}" /mnt
 
