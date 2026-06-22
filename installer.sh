@@ -129,8 +129,11 @@ hadbads_chroot(){
 	# -D : Create directories if required
 	# m755 : Owner can read and write, and others can execute.
 	install -Dm755 "$0" /mnt/root/archer.sh
-
 	cp -r pkglists /mnt/root/
+
+	# Use cache if it exists
+	mkdir -p /mnt/var/cache/pacman/pkg
+	mount --bind /var/cache/pacman/pkg /mnt/var/cache/pacman/pkg
 
 	arch-chroot /mnt /root/archer.sh --chroot
 }
@@ -197,9 +200,23 @@ EOF
 hadbads_packages_install() {
 	pacman -Syu --noconfirm --needed $(awk -F'#' '{print $1}' /root/pkglists/pacman_packages.txt) yay
 
+	# select stable rust. as yay may have some rust programs
+	sudo -u "$username" rustup default stable
+
 	sudo -u "$username" yay -Syu --noconfirm --needed $(awk -F'#' '{print $1}' /root/pkglists/aur_packages.txt)
 
 	usermod -aG libvirt "$username"
+
+	# Download handy
+	URL=$(curl -s "https://api.github.com/repos/cjpais/Handy/releases/latest" | sed -n 's/.*"browser_download_url": "\(.*amd64\.AppImage\)".*/\1/p')
+	curl -LO "$URL" && chmod +x 
+	mkdir -p /home/$username/.local/bin
+	mv Handy_*_amd64.AppImage /home/$username/.local/bin/handy.AppImage
+
+	# Download hexecute
+	URL=$(curl -s "https://api.github.com/repos/m31-galaxy/Hexecute/releases" | sed -n 's/.*"browser_download_url": "\(.*hexecute\)".*/\1/p' | head -n 1)
+	curl -LO "$URL" && chmod +x hexecute
+	mv hexecute /home/$USER/.local/bin/
 }
 
 hadbads_configure_user() {
@@ -241,6 +258,8 @@ else
 	hadbads_locale
 	hadbads_hostname
 	hadbads_initramfs
+	# Temporarily disable sudo password requirement
+	echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/99_wheel_nopasswd
 	hadbads_configure_pacman
 	hadbads_configure_bootloader
 	hadbads_setup_xlibre_repo
@@ -249,5 +268,7 @@ else
 	hadbads_packages_install
 	hadbads_apply_dotfiles
 	hadbads_enable_services
+	# Enable sudo password requirements
+	rm /etc/sudoers.d/99_wheel_nopasswd
 	echo "Installation Complete. Reboot now."
 fi
