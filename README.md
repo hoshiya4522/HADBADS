@@ -4,7 +4,7 @@ Hoshiya's Awful Dotfiles Bootstrap And Deployment Script
 
 > [!WARNING]
 > I made this script for myself. This may or may not work for you.
-> Works on my VM™.
+> Actually Works! (on my VM™).
 
 **Note:**
 - hostname is "Pluto" (I like intersteller names)
