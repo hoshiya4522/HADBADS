@@ -216,7 +216,7 @@ hadbads_packages_install() {
 	# Download hexecute
 	URL=$(curl -s "https://api.github.com/repos/m31-galaxy/Hexecute/releases" | sed -n 's/.*"browser_download_url": "\(.*hexecute\)".*/\1/p' | head -n 1)
 	curl -LO "$URL" && chmod +x hexecute
-	mv hexecute /home/$USER/.local/bin/
+	mv hexecute /home/$username/.local/bin/
 }
 
 hadbads_configure_user() {
