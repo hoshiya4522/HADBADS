@@ -10,5 +10,6 @@ python-pywal16
 snappy-switcher
 ttf-hind-siliguri
 waycorner
+wlctl-git
 wleave
 zsh-antidote

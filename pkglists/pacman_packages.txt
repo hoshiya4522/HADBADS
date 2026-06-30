@@ -4,11 +4,11 @@ alacritty
 alsa-utils
 anki
 anydesk-bin
-archlinux-keyring
 arduino-cli
 aria2
 ark
 auto-cpufreq
+awww
 base
 base-devel
 bash
@@ -49,6 +49,7 @@ feh
 ferdium-bin
 ffmpegthumbs
 firefox
+firefox-tridactyl
 flameshot
 fontforge
 foot
@@ -56,6 +57,7 @@ fortune-mod
 fuzzel
 fzf
 gamescope
+ghostty
 git
 github-cli
 grub
@@ -63,6 +65,7 @@ gsl
 gum
 gwenview
 helium-browser-bin
+heroic-games-launcher-bin
 htop
 httrack
 hugo
@@ -77,6 +80,7 @@ jdk21-openjdk
 kamoso
 kanata
 kate
+kcolorchooser
 kdeconnect
 kdegraphics-thumbnailers
 kdenlive
@@ -97,6 +101,7 @@ linux
 linux-firmware
 llama-cpp-git
 localsend
+lua-language-server
 lutris
 man-db
 man-pages
