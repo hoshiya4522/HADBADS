@@ -97,6 +97,7 @@ hadbads_disk_partition() {
 	# Mount swap file
 	mount -o compress=zstd,subvol=@swap "${rootdev}" /mnt/.swap
 	btrfs filesystem mkswapfile --size "${swapsize}" --uuid clear /mnt/.swap/swapfile
+	swapon /mnt/.swap/swapfile
 
 	# Mount boot partition
 	mount "${efidev}" /mnt/boot/efi
