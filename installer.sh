@@ -137,6 +137,8 @@ hadbads_chroot(){
 	cp -r pkglists /mnt/root/
 
 	# Use cache if it exists
+	# make sure to mount it if it is on a separate partition
+	# mount /dev/vdb /var/cache/pacman/pkg
 	mkdir -p /mnt/var/cache/pacman/pkg
 	mount --bind /var/cache/pacman/pkg /mnt/var/cache/pacman/pkg
 
