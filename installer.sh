@@ -4,10 +4,22 @@
 hostname="Pluto"
 username="hoshiya4522"
 password="123"
+
 device="/dev/vda"	# you may want to change it to "/dev/nvme0n1"
-timezone="Asia/Dhaka"
+efidevice=""		# if left empty, devicep2 will be chosen automatically
+			# example: nvme0n1p1
+rootdevice=""		# if left empty, devicep1 will be chosen automatically
+			# example: nvme0n1p2
+
+preserve_home=true
+home_subvolume="@home"
+
 swapsize="$(free -b|awk '/^Mem:/{print $2}')"
+
 dotfiles_repo="https://github.com/hoshiya4522/dotfiles"
+
+timezone="Asia/Dhaka"
+
 # Config End
 
 
@@ -15,22 +27,40 @@ dotfiles_repo="https://github.com/hoshiya4522/dotfiles"
 # Turn on extended globbing
 shopt -s extglob
 
+
 # define root and efi devices, depending on, vda, sda, nvme
-if [ "${device::8}" == "/dev/nvm" ] ; then
-    if [ -d "/sys/firmware/efi" ] ; then
-        efidev="${device}p1"
-        rootdev="${device}p2"
-    else
-        rootdev="${device}p1"
-    fi
+
+# identify naming scheme
+if [[ "${device}" == /dev/nvme* ]]; then
+	part_suffix="p"
 else
-    if [ -d "/sys/firmware/efi" ] ; then
-        efidev="${device}1"
-        rootdev="${device}2"
-    else
-        rootdev="${device}1"
-    fi
+	part_suffix=""
 fi
+
+# check if efi
+if [[ -d "/sys/firmware/efi" ]]; then
+	if [[ -n "${efidevice}" ]]; then
+		efidev="${efidevice}"			# Use user config if provided
+	else
+		efidev="${device}${part_suffix}1"	# else use the first partition
+	fi
+else
+	echo "This script only supports UEFI systems for now."
+	exit 1
+fi
+
+if [[ -n "${rootdevice}" ]]; then
+	rootdev="${rootdevice}"				# Use user config if provided
+else
+	if [[ -d "/sys/firmware/efi" ]]; then
+		rootdev="${device}${part_suffix}2"	# else use second partition
+	else
+		echo "This script only supports UEFI systems for now."
+		exit 1
+		# rootdev="${device}${part_suffix}1"
+	fi
+fi
+
 
 
 hadbads_check_liveiso() {
@@ -55,33 +85,47 @@ hadbads_setclock() {
 }
 
 hadbads_disk_partition() {
-	# esp partition from start to 1G
-	# primary partition from 1G to finish
-	# parted -s "$device" mklabel gpt \
-	# 	mkpart esp 0% 1GiB \ 
-	# 	mkpart primary 1GiB 100% \ 
-	# 	set 1 esp on
+	if [[ "${preserve_home}" = false ]]; then
+		# esp partition from start to 1G
+		# primary partition from 1G to finish
+		# parted -s "$device" mklabel gpt \
+		# 	mkpart esp 0% 1GiB \ 
+		# 	mkpart primary 1GiB 100% \ 
+		# 	set 1 esp on
+		parted -s "$device" mklabel gpt mkpart esp 0% 1GiB mkpart primary 1GiB 100% set 1 esp on
 
-	parted -s "$device" mklabel gpt mkpart esp 0% 1GiB mkpart primary 1GiB 100% set 1 esp on
+		# specify device type
+		mkfs.fat -F 32 "${efidev}"
+		mkfs.btrfs -f "${rootdev}"
 
-	# specify device type
-	mkfs.fat -F 32 "${efidev}"
-	mkfs.btrfs -f "${rootdev}"
+		mount "${rootdev}" /mnt
 
-	mount "${rootdev}" /mnt
+		# https://wiki.archlinux.org/title/Snapper#Suggested_filesystem_layout
+		# | tags       | final mountpoint | mountpoint for pacstrap |
+		# |------------|------------------|-------------------------|
+		# | @          | /                | /mnt/@                  |
+		# | @home      | /home            | /mnt/@home              |
+		# | @snapshots | /.snapshots      | /mnt/@snapshots         |
+		# | @var_log   | /var/log         | /mnt/@var_log           |
+		# | @swap      | /.swap           | /mnt/@swap              |
 
-	# https://wiki.archlinux.org/title/Snapper#Suggested_filesystem_layout
-	# | tags       | final mountpoint | mountpoint for pacstrap |
-	# |------------|------------------|-------------------------|
-	# | @          | /                | /mnt/@                  |
-	# | @home      | /home            | /mnt/@home              |
-	# | @snapshots | /.snapshots      | /mnt/@snapshots         |
-	# | @var_log   | /var/log         | /mnt/@var_log           |
-	# | @swap      | /.swap           | /mnt/@swap              |
+		# subvolumes creation
+		btrfs subvolume create "/mnt/${home_subvolume}"
+	else
+		mkfs.fat -F 32 "${efidev}"
 
-	# subvolumes creation
+		# mount existing btrfs device
+		mount "${rootdev}" /mnt
+
+		# delete all subvolumes except home_subvolume
+		btrfs subvolume list /mnt | sed 's/.*path //' | while read -r subvol; do
+		if [ "$subvol" != "$home_subvolume" ]; then
+			btrfs subvolume delete "/mnt/$subvol" 2>/dev/null || true
+		fi
+		done
+	fi
+
 	btrfs subvolume create /mnt/@
-	btrfs subvolume create /mnt/@home
 	btrfs subvolume create /mnt/@snapshots
 	btrfs subvolume create /mnt/@var_log
 	btrfs subvolume create /mnt/@swap
@@ -93,7 +137,7 @@ hadbads_disk_partition() {
 	mount -o compress=zstd,subvol=@ "${rootdev}" /mnt
 	mkdir -p /mnt/home /mnt/.snapshots /mnt/var/log /mnt/.swap /mnt/boot/efi
 
-	mount -o compress=zstd,subvol=@home "${rootdev}" /mnt/home
+	mount -o compress=zstd,subvol="${home_subvolume}" "${rootdev}" /mnt/home
 	mount -o compress=zstd,subvol=@var_log "${rootdev}" /mnt/var/log
 	mount -o compress=zstd,subvol=@snapshots "${rootdev}" /mnt/.snapshots
 
@@ -105,8 +149,6 @@ hadbads_disk_partition() {
 	# Mount boot partition
 	mount "${efidev}" /mnt/boot/efi
 }
-
-# TODO: Preserve Previous @home
 
 hadbads_pac_mirror() {
 	pacman -Sy reflector --noconfirm --needed
