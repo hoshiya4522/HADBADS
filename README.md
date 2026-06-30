@@ -8,13 +8,13 @@ Hoshiya's Awful Dotfiles Bootstrap And Deployment Script - HADBADS
 > [!NOTE]
 > Havent tested the dev version...
 
-**Note:**
-- hostname is "Pluto" (I like intersteller names)
-- username "hoshiya4522"  (me :D)
-- device is `/dev/vda` - **Make sure to change this to your actual drive.**
-- and the password is `123` (Most secure password in the world)
-- Default dotfiles repo is [hoshiya4522/dotfiles](https://github.com/hoshiya4522/dotfiles).
-- (Also this only works for UEFI systems, for now)
+**Default Config:**
+- **Hostname:** Pluto `(I like space related names)`
+- **Username:** hoshiya4522  `(Hey, thats me :D)`
+- **Storage Drive:** `/dev/vda` - **Make sure to change this to your actual drive.**
+- **Password:** 123 `(Most secure password in the world)`
+- **Dotfiles Repo (Managed with Chezmoi):**  [hoshiya4522/dotfiles](https://github.com/hoshiya4522/dotfiles).
+- ⚠️ NOTE: This script only works for UEFI systems, for now
 
 ## How to Install
 
