@@ -1,13 +1,16 @@
 #!/bin/bash
 
+# Config start
 hostname="Pluto"
 username="hoshiya4522"
 password="123"
-# device="/dev/nvme0n1"
-device="/dev/vda"
+device="/dev/vda"	# you may want to change it to "/dev/nvme0n1"
 timezone="Asia/Dhaka"
 swapsize="$(free -b|awk '/^Mem:/{print $2}')"
 dotfiles_repo="https://github.com/hoshiya4522/dotfiles"
+# Config End
+
+
 
 # Turn on extended globbing
 shopt -s extglob
@@ -228,6 +231,8 @@ hadbads_configure_user() {
 	echo "${username}:${password}" | chpasswd
 
 	sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
+
+	sudo -H -u "$username" xdg-user-dirs-update
 }
 
 hadbads_install_tpm() {

@@ -30,3 +30,4 @@ htop
 tree
 reflector
 git
+xdg-user-dirs
