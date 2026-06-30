@@ -209,9 +209,9 @@ hadbads_packages_install() {
 
 	# Download handy
 	URL=$(curl -s "https://api.github.com/repos/cjpais/Handy/releases/latest" | sed -n 's/.*"browser_download_url": "\(.*amd64\.AppImage\)".*/\1/p')
-	curl -LO "$URL" && chmod +x 
+	curl -L "$URL" -o handy.AppImage && chmod +x handy.AppImage
 	mkdir -p /home/$username/.local/bin
-	mv Handy_*_amd64.AppImage /home/$username/.local/bin/handy.AppImage
+	mv handy.AppImage /home/$username/.local/bin/
 
 	# Download hexecute
 	URL=$(curl -s "https://api.github.com/repos/m31-galaxy/Hexecute/releases" | sed -n 's/.*"browser_download_url": "\(.*hexecute\)".*/\1/p' | head -n 1)
@@ -243,8 +243,8 @@ hadbads_apply_dotfiles() {
 hadbads_bengali_font_fix() {
 	# https://github.com/tazihad/bangla-font-fix-linux
 	sudo -u "$username" sh -c "curl -sSL https://raw.githubusercontent.com/tazihad/bangla-font-fix-linux/main/fonts-bangla-download.sh | sh"
-    sudo -u "$username" sh -c "curl -sSL https://raw.githubusercontent.com/tazihad/bangla-font-fix-linux/main/bangla-nirmalaui-default.sh | sh"
-    sudo -u "$username" sh -c "curl -sSL https://raw.githubusercontent.com/tazihad/bangla-font-fix-linux/main/msfonts-download.sh | sh"
+	sudo -u "$username" sh -c "curl -sSL https://raw.githubusercontent.com/tazihad/bangla-font-fix-linux/main/bangla-nirmalaui-default.sh | sh"
+	sudo -u "$username" sh -c "curl -sSL https://raw.githubusercontent.com/tazihad/bangla-font-fix-linux/main/msfonts-download.sh | sh"
 
 }
 
