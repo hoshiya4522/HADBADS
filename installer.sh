@@ -240,6 +240,14 @@ hadbads_apply_dotfiles() {
 	sudo -u "$username" chezmoi init --apply "${dotfiles_repo}"
 }
 
+hadbads_bengali_font_fix() {
+	# https://github.com/tazihad/bangla-font-fix-linux
+	sudo -u "$username" sh -c "curl -sSL https://raw.githubusercontent.com/tazihad/bangla-font-fix-linux/main/fonts-bangla-download.sh | sh"
+    sudo -u "$username" sh -c "curl -sSL https://raw.githubusercontent.com/tazihad/bangla-font-fix-linux/main/bangla-nirmalaui-default.sh | sh"
+    sudo -u "$username" sh -c "curl -sSL https://raw.githubusercontent.com/tazihad/bangla-font-fix-linux/main/msfonts-download.sh | sh"
+
+}
+
 hadbads_enable_services() {
 	systemctl enable NetworkManager
 	systemctl enable auto-cpufreq
@@ -274,6 +282,7 @@ else
 	hadbads_packages_install
 	hadbads_install_tpm
 	hadbads_apply_dotfiles
+	hadbads_bengali_font_fix
 	hadbads_enable_services
 	# Enable sudo password requirements
 	rm /etc/sudoers.d/99_wheel_nopasswd
