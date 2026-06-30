@@ -1,6 +1,8 @@
 <img src="logo.png" width="550px" alt="HADBADS Logo">
 
-**H**oshiya's **A**wful **D**otfiles **B**ootstrap **A**nd **D**eployment **S**cript - HADBADS
+**H**oshiya's **A**wful **D**otfiles **B**ootstrap **A**nd **D**eployment **S**cript
+
+hoshiya4522's custom archlinux install script
 
 > [!WARNING]
 > I made this script for myself. This may or may not work for you.
@@ -14,7 +16,9 @@
 - **Storage Drive:** `/dev/vda` - **Make sure to change this to your actual drive.**
 - **Password:** 123 `(Most secure password in the world)`
 - **Dotfiles Repo (Managed with Chezmoi):**  [hoshiya4522/dotfiles](https://github.com/hoshiya4522/dotfiles).
-- ⚠️ NOTE: This script only works for UEFI systems, for now
+- ⚠️ NOTE: 
+    - This script only works for UEFI systems, for now
+    - This script currently only works for **Arch Linux**<sup>btw</sup>
 
 ## How to Install
 
