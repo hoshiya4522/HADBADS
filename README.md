@@ -1,18 +1,19 @@
-![hadbads logo](logo.png)
+<img src="logo.png" width="550px" alt="HADBADS Logo">
 
-Hoshiya's Awful Dotfiles Bootstrap And Deployment Script
+Hoshiya's Awful Dotfiles Bootstrap And Deployment Script - HADBADS
 
 > [!WARNING]
 > I made this script for myself. This may or may not work for you.
 
 > [!NOTE]
-> Actually Works! (on my VM™).
+> Havent tested the dev version...
 
 **Note:**
 - hostname is "Pluto" (I like intersteller names)
 - username "hoshiya4522"  (me :D)
 - device is `/dev/vda` - **Make sure to change this to your actual drive.**
 - and the password is `123` (Most secure password in the world)
+- Default dotfiles repo is [hoshiya4522/dotfiles](https://github.com/hoshiya4522/dotfiles).
 - (Also this only works for UEFI systems, for now)
 
 ## How to Install
@@ -35,7 +36,7 @@ cd hadbads
 chmod +x installer.sh && ./installer.sh
 ```
 
-5. Wait for the installation to finish and reboot your computer.
+5. Wait for the installation to finish and then reboot your computer.
 
 
 

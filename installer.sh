@@ -7,6 +7,7 @@ password="123"
 device="/dev/vda"
 timezone="Asia/Dhaka"
 swapsize="$(free -b|awk '/^Mem:/{print $2}')"
+dotfiles_repo="https://github.com/hoshiya4522/dotfiles"
 
 # Turn on extended globbing
 shopt -s extglob
@@ -236,7 +237,7 @@ hadbads_install_tpm() {
 
 hadbads_apply_dotfiles() {
 	pacman -S --noconfirm --needed git chezmoi # confirming one more time
-	sudo -u "$username" chezmoi init --apply https://github.com/hoshiya4522/dotfiles.git
+	sudo -u "$username" chezmoi init --apply "${dotfiles_repo}"
 }
 
 hadbads_enable_services() {
