@@ -1,4 +1,5 @@
-base		# main base stuff
+# pacstrap base stuff
+base
 base-devel
 linux
 linux-firmware
