@@ -1,6 +1,6 @@
 <img src="logo.png" width="550px" alt="HADBADS Logo">
 
-Hoshiya's Awful Dotfiles Bootstrap And Deployment Script - HADBADS
+**H**oshiya's **A**wful **D**otfiles **B**ootstrap **A**nd **D**eployment **S**cript - HADBADS
 
 > [!WARNING]
 > I made this script for myself. This may or may not work for you.
