@@ -19,7 +19,7 @@ Hoshiya's Awful Dotfiles Bootstrap And Deployment Script - HADBADS
 ## How to Install
 
 1. Boot into the Arch Linux Live USB.
-2. Connect to the internet. [Guide](https://wiki.archlinux.org/title/Installation_guide#Connect_to_the_internet), [Using iwctl](https://wiki.archlinux.org/title/Iwd)
+2. Connect to the internet. [Guide](https://wiki.archlinux.org/title/Installation_guide#Connect_to_the_internet), [Using iwctl](https://wiki.archlinux.org/title/Iwd#iwctl)
 3. Install git:
 ```bash
 pacman -Sy git
