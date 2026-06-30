@@ -138,7 +138,6 @@ hadbads_chroot(){
 	arch-chroot /mnt /root/archer.sh --chroot
 }
 
-
 hadbads_locale(){
 	sed -i '/^#'en_US.UTF'/s/^#//g' /etc/locale.gen
 	printf "LANG=en_US.UTF-8" > /etc/locale.conf
@@ -229,6 +228,12 @@ hadbads_configure_user() {
 	sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 }
 
+hadbads_install_tpm() {
+	# tmux package manager
+	sudo -u "$username" mkdir -p "/home/$username/.tmux/plugins"
+	sudo -u "$username" git clone https://github.com/tmux-plugins/tpm "/home/$username/.tmux/plugins/tpm"
+}
+
 hadbads_apply_dotfiles() {
 	pacman -S --noconfirm --needed git chezmoi # confirming one more time
 	sudo -u "$username" chezmoi init --apply https://github.com/hoshiya4522/dotfiles.git
@@ -266,6 +271,7 @@ else
 	hadbads_setup_chaotic_aur
 	hadbads_configure_user
 	hadbads_packages_install
+	hadbads_install_tpm
 	hadbads_apply_dotfiles
 	hadbads_enable_services
 	# Enable sudo password requirements
