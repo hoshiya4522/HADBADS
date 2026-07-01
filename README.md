@@ -33,6 +33,7 @@ pacman -Sy git
 ```bash
 git clone https://github.com/hoshiya4522/hadbads.git
 cd hadbads
+git checkout dev # if you want to test this branch
 ```
 
 5. Run the script as root:

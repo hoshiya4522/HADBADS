@@ -287,7 +287,7 @@ hadbads_install_tpm() {
 
 hadbads_apply_dotfiles() {
 	pacman -S --noconfirm --needed git chezmoi # confirming one more time
-	sudo -u "$username" chezmoi init --apply "${dotfiles_repo}"
+	sudo -uH "$username" chezmoi init --apply "${dotfiles_repo}"
 }
 
 hadbads_bengali_font_fix() {

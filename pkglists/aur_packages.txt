@@ -1,4 +1,5 @@
 # pacman -Qqme > aur_packages.txt
+
 arduino-ide-bin
 epson-inkjet-printer-201401w
 hexecute
@@ -7,9 +8,13 @@ k2pdfopt
 piper-tts-bin
 python-edge-tts
 python-pywal16
-snappy-switcher
 ttf-hind-siliguri
-waycorner
 wlctl-git
-wleave
 zsh-antidote
+
+#=========#
+# Removed #
+#=========#
+# wleave
+# waycorner
+# snappy-switcher
